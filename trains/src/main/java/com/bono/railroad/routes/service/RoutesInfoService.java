@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+import com.bono.graphs.Graph;
+import com.bono.graphs.Vertex;
 import com.bono.railroad.route.Route;
 import com.bono.railroad.routes.exception.NoSuchRouteException;
 import com.bono.railroad.routes.exception.RoutesException;
@@ -14,20 +16,19 @@ import com.bono.railroad.station.Station;
 
 public class RoutesInfoService implements IRoutesInfoService {
 
-	private Map<String, Station> stations = null;
+	private Map<String, Station> stationsMap = null;
+	private List<Station> stationsList = null;
+	
+	private Graph<Station> graph = null;
 
 	public RoutesInfoService() {
 		init();
 	}
 
 	private void init() {
-
-		stations = setupStations();
-	}
-
-	private Map<String,Station> setupStations() {
-
-		Map<String,Station> result = new HashMap<String,Station>();
+		
+		stationsMap = new HashMap<String,Station>();
+		stationsList = new ArrayList<Station>();
 
 		Station A = new Station("A");
 		Station B = new Station("B");
@@ -46,17 +47,52 @@ public class RoutesInfoService implements IRoutesInfoService {
 
 		E.setRoutes(new Route[] { new Route(B, 3) });
 
-		result.put("A", A);
-		result.put("B", B);
-		result.put("C", C);
-		result.put("D", D);
-		result.put("E", E);
-
-		return result;
-
+		stationsMap.put("A", A);
+		stationsMap.put("B", B);
+		stationsMap.put("C", C);
+		stationsMap.put("D", D);
+		stationsMap.put("E", E);
+		
+		stationsList.add(A);
+		stationsList.add(B);
+		stationsList.add(C);
+		stationsList.add(D);
+		stationsList.add(E);
+		
+		graph = new Graph<Station>();
+		
+		Vertex<Station> vA = new Vertex<Station>("A", A);
+		Vertex<Station> vB = new Vertex<Station>("B", B);
+		Vertex<Station> vC = new Vertex<Station>("C", C);
+		Vertex<Station> vD = new Vertex<Station>("D", D);
+		Vertex<Station> vE = new Vertex<Station>("E", E);
+		
+		vA.addOutgoingEdge(vB, 5);
+		vA.addOutgoingEdge(vD, 5);
+		vA.addOutgoingEdge(vE, 7);
+		
+		vB.addOutgoingEdge(vC, 4);
+		
+		vC.addOutgoingEdge(vD, 8);
+		vC.addOutgoingEdge(vE, 2);
+		
+		vD.addOutgoingEdge(vC, 8);
+		vD.addOutgoingEdge(vE, 6);
+		
+		vE.addOutgoingEdge(vB, 3);
+		vE.addOutgoingEdge(vA, 7);
+		
+		graph.addVertex(vA);
+		graph.addVertex(vB);
+		graph.addVertex(vC);
+		graph.addVertex(vD);
+		graph.addVertex(vE);
+		
 	}
 
-	private void setupRoutes(Station source) {
+	private Station setupRoutes(Station source) {
+		
+		Station result = null;
 
 		if (source != null) {
 
@@ -91,14 +127,7 @@ public class RoutesInfoService implements IRoutesInfoService {
 			}
 
 		}
-	}
-	
-	private void resetRoutes(Station source) {
-		
-		for(Station station = source ; station != null ; station = station.getPrevious()) {
-			station.setMinDistance(Double.POSITIVE_INFINITY);
-		}
-		
+		return result;
 	}
 	
 	private List<Station> getShortestRoute(Station destination) {
@@ -121,34 +150,57 @@ public class RoutesInfoService implements IRoutesInfoService {
 		
 		for(int i=0 ; i<(route.length -1) ; i++) {
 			
-			if(!stations.containsKey(route[i]) || !stations.containsKey(route[i+1]))
+			if(!stationsMap.containsKey(route[i]) || !stationsMap.containsKey(route[i+1]))
 				throw new NoSuchRouteException();
 			
-			Station origin = stations.get(route[i]);
-			Station destination = stations.get(route[i+1]);
+			Station origin = stationsMap.get(route[i]);
+			Station destination = stationsMap.get(route[i+1]);
 			
-			setupRoutes(origin);
-			
-			for(Station station : getShortestRoute(destination)) {
-				distance += station.getMinDistance();
+			int routeDistance = 0;
+			for(Route currentRoute : origin.getRoutes()) {
+				if(currentRoute.getDestination().getName().equalsIgnoreCase(destination.getName())) {
+					routeDistance += currentRoute.getDistance();
+				}
 			}
 			
-			resetRoutes(origin);
+			if(routeDistance == 0) {
+				throw new NoSuchRouteException();
+			}
+			
+			distance += routeDistance;
 			
 		}
 		
 		return distance;
 	}
 
-	public int getNumberOfTripsWithMaxStops(int maxStops)
-			throws RoutesException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getNumberOfTripsWithMaxStops(String origin, String destination,
+			int maxStops) throws RoutesException {
+		
+		if(!stationsMap.containsKey(origin) || !stationsMap.containsKey(destination))
+			throw new NoSuchRouteException();
+		
+		int result = 0;
+		
+		Station originStation = stationsMap.get(origin);
+		
+		int stops = 0;
+		
+		while(stops <= maxStops) {
+			//TODO
+			stops++;
+		}
+		
+		return result;
 	}
 
-	public int getNumberOfTripsWithStops(int stops) throws RoutesException {
+	public int getNumberOfTripsWithStops(String origin, String destination,
+			int stops) throws RoutesException {
+		
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
 
 }

@@ -2,7 +2,7 @@ package com.bono.railroad.route;
 
 import com.bono.railroad.station.Station;
 
-public class Route {
+public class Route implements Cloneable {
 
 	private final Station destination;
 	private final double distance;
@@ -23,6 +23,10 @@ public class Route {
 
 	public double getDistance() {
 		return distance;
+	}
+
+	public Route clone() {
+		return new Route(this.destination, this.distance);
 	}
 
 }

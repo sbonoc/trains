@@ -1,8 +1,5 @@
 package com.bono.railroad.routes.service.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -14,33 +11,12 @@ import com.bono.railroad.routes.service.RoutesInfoService;
 
 public class RoutesInfoServiceTest {
 	
-	/**
-	 * The distance of the route A-B-C
-	 */
 	private static final String[] ROUTE_TEST_1;
-	/**
-	 * 
-	 */
 	private static final String[] ROUTE_TEST_2;
-	/**
-	 * 
-	 */
 	private static final String[] ROUTE_TEST_3;
-	/**
-	 * 
-	 */
 	private static final String[] ROUTE_TEST_4;
-	/**
-	 * 
-	 */
 	private static final String[] ROUTE_TEST_5;
-	/**
-	 * 
-	 */
 	private static final String[] ROUTE_TEST_6;
-	/**
-	 * 
-	 */
 	private static final String[] ROUTE_TEST_7;
 	private static final String[] ROUTE_TEST_8;
 	private static final String[] ROUTE_TEST_9;
@@ -114,6 +90,7 @@ public class RoutesInfoServiceTest {
 			System.out.println("Output #5: " + result);
 		} catch(RoutesException e) {
 			System.out.println("Output #5: " + e.getMessage());
+			throw e;
 		}
 	}
 	

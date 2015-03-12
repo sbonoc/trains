@@ -2,7 +2,7 @@ package com.bono.railroad.station;
 
 import com.bono.railroad.route.Route;
 
-public class Station implements Comparable<Station> {
+public class Station implements Cloneable, Comparable<Station> {
 
 	private final String name;
 
@@ -58,6 +58,14 @@ public class Station implements Comparable<Station> {
 
 	public String getName() {
 		return name;
+	}
+
+	public Station clone() {
+		Station cloned = new Station(this.name);
+		cloned.setMinDistance(this.minDistance);
+		cloned.setPrevious(this.previous.clone());
+		cloned.setRoutes(this.routes.clone());
+		return cloned;
 	}
 
 }
