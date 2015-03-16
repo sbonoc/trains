@@ -31,8 +31,8 @@ public class RoutesInfoService implements IRoutesInfoService {
 			origin = railNetwork.getStation(route[i]);
 			destination = railNetwork.getStation(route[i + 1]);
 
-			distance += railNetwork.getRoute(origin.getId(),
-					destination.getId()).getDistance();
+			distance += railNetwork.getRouteDistance(origin.getId(),
+					destination.getId());
 
 		}
 
@@ -42,22 +42,16 @@ public class RoutesInfoService implements IRoutesInfoService {
 	public int getNumberOfTripsWithMaxStops(String origin, String destination,
 			int maxStops) throws RailroadRuntimeException {
 
-		Station originStation = railNetwork.getStation(origin);
-		Station destinationStation = railNetwork.getStation(destination);
-
-		return railNetwork.getNumberOfTripsWithMaxStops(originStation.getId(),
-				destinationStation.getId(), maxStops);
+		return railNetwork.getNumberOfTripsWithMaxStops(origin,
+				destination, maxStops);
 
 	}
 
 	public int getNumberOfTripsWithNumStops(String origin, String destination,
 			int numStops) throws RailroadRuntimeException {
 
-		Station originStation = railNetwork.getStation(origin);
-		Station destinationStation = railNetwork.getStation(destination);
-
-		return railNetwork.getNumberOfTripsWithNumStops(originStation.getId(),
-				destinationStation.getId(), numStops);
+		return railNetwork.getNumberOfTripsWithNumStops(origin,
+				destination, numStops);
 
 	}
 

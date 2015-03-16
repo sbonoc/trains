@@ -2,8 +2,8 @@ package com.bono.railroad.network;
 
 import java.util.Map;
 
+import com.bono.graphs.Graph;
 import com.bono.railroad.network.exception.NoSuchStationException;
-import com.bono.railroad.network.route.Route;
 import com.bono.railroad.network.station.Station;
 import com.bono.railroad.routes.service.RouteSearch;
 import com.bono.railroad.routes.service.exception.NoSuchRouteException;
@@ -12,8 +12,9 @@ public class RailNetwork {
 
 	private static RailNetwork _instance = null;
 
+	private Graph railNetworkGraph = null;
 	private Map<String, Station> railNetwork = null;
-	private Route[][] railNetworkMatrix = null;
+	private int[][] railNetworkMatrix = null;
 
 	private RailNetwork() {
 		init();
@@ -35,6 +36,7 @@ public class RailNetwork {
 	private void loadRailNetworkMap() {
 
 		RailNetworkLoader loader = new RailNetworkLoader();
+		railNetworkGraph = loader.getRailNetworkGraph();
 		railNetwork = loader.getRailNetwork();
 		railNetworkMatrix = loader.getRailNetworkMatrix();
 
@@ -54,10 +56,10 @@ public class RailNetwork {
 
 	}
 
-	public Route getRoute(int idStationOrigin, int idStationDestination)
+	public int getRouteDistance(int idStationOrigin, int idStationDestination)
 			throws NoSuchRouteException {
 
-		Route result = null;
+		int result = -1;
 
 		try {
 
@@ -67,7 +69,7 @@ public class RailNetwork {
 			throw new NoSuchRouteException();
 		}
 
-		if (result == null) {
+		if (result == -1) {
 			throw new NoSuchRouteException();
 		}
 
@@ -75,28 +77,31 @@ public class RailNetwork {
 
 	}
 
-	public int getNumberOfTripsWithMaxStops(int idStationOrigin,
-			int idStationDestination, int maxStops) {
+	public int getNumberOfTripsWithMaxStops(String origin, String destination,
+			int maxStops) {
 
-		RouteSearch search = new RouteSearch(railNetworkMatrix);
-		return search.getNumberOfTripsWithMaxStops(idStationOrigin,
-				idStationDestination, maxStops);
+		RouteSearch search = new RouteSearch(railNetworkGraph,
+				railNetworkMatrix);
+		return search.getNumberOfTripsWithMaxStops(origin, destination,
+				maxStops);
 
 	}
 
-	public int getNumberOfTripsWithNumStops(int idStationOrigin,
-			int idStationDestination, int numStops) {
+	public int getNumberOfTripsWithNumStops(String origin, String destination,
+			int numStops) {
 
-		RouteSearch search = new RouteSearch(railNetworkMatrix);
-		return search.getNumberOfTripsWithNumStops(idStationOrigin,
-				idStationDestination, numStops);
+		RouteSearch search = new RouteSearch(railNetworkGraph,
+				railNetworkMatrix);
+		return search.getNumberOfTripsWithNumStops(origin, destination,
+				numStops);
 
 	}
 
 	public int getDistanceOfShortestPathBetween(int idStationOrigin,
 			int idStationDestionation) {
 
-		RouteSearch search = new RouteSearch(railNetworkMatrix);
+		RouteSearch search = new RouteSearch(railNetworkGraph,
+				railNetworkMatrix);
 		return search.getDistanceOfShortestPathBetween(idStationOrigin,
 				idStationDestionation);
 

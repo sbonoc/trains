@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
+import com.bono.graphs.Graph;
 import com.bono.railroad.network.exception.RailNetworkInitalizationException;
-import com.bono.railroad.network.route.Route;
 import com.bono.railroad.network.station.Station;
 
 public class RailNetworkLoader {
@@ -26,8 +26,9 @@ public class RailNetworkLoader {
 
 	private Properties config;
 
+	private Graph railNetworkGraph;
 	private Map<String, Station> railNetwork;
-	private Route[][] railNetworkMatrix;
+	private int[][] railNetworkMatrix;
 
 	public RailNetworkLoader() {
 		init();
@@ -52,6 +53,7 @@ public class RailNetworkLoader {
 
 		try {
 
+			railNetworkGraph = new Graph();
 			railNetwork = new HashMap<String, Station>();
 
 			Map<Integer, Station> auxMap = new HashMap<Integer, Station>();
@@ -59,7 +61,17 @@ public class RailNetworkLoader {
 			int totalStations = Integer.parseInt(config
 					.getProperty(CONFIG_STATION_TOTAL_KEY));
 
-			railNetworkMatrix = new Route[totalStations][totalStations];
+			railNetworkMatrix = new int[totalStations][totalStations];
+
+			for (int i = 0; i < totalStations; i++) {
+				for (int j = 0; j < totalStations; j++) {
+					if (i == j) {
+						railNetworkMatrix[i][j] = 0;
+					} else {
+						railNetworkMatrix[i][j] = -1;
+					}
+				}
+			}
 
 			int id;
 			String name;
@@ -85,8 +97,8 @@ public class RailNetworkLoader {
 					.getProperty(CONFIG_ROUTE_TOTAL_KEY));
 
 			Station origin, destination;
-			Route auxRoute;
 			int idFrom, idTo, distance;
+
 			for (int i = 0; i < totalRoutes; i++) {
 
 				idFrom = Integer.parseInt(config.getProperty(
@@ -102,13 +114,15 @@ public class RailNetworkLoader {
 				origin = auxMap.get(idFrom);
 				destination = auxMap.get(idTo);
 
-				auxRoute = new Route(origin, destination, distance);
+				railNetworkGraph.addEdge(origin.getName(),
+						destination.getName(), distance);
 
-				railNetworkMatrix[idFrom - 1][idTo - 1] = auxRoute;
+				railNetworkMatrix[idFrom - 1][idTo - 1] = distance;
 
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new RailNetworkInitalizationException(e);
 		}
 
@@ -138,9 +152,9 @@ public class RailNetworkLoader {
 		for (int i = 0; i < railNetworkMatrix.length; i++) {
 			System.out.println();
 			for (int j = 0; j < railNetworkMatrix[0].length; j++) {
-				Route route = railNetworkMatrix[i][j];
+				int distance = railNetworkMatrix[i][j];
 				System.out.print("[" + i + "][" + j + "]: "
-						+ (route == null ? "0" : route.getDistance()) + " ");
+						+ (distance == -1 ? 0 : distance));
 			}
 			System.out.println();
 		}
@@ -151,8 +165,12 @@ public class RailNetworkLoader {
 		return railNetwork;
 	}
 
-	public Route[][] getRailNetworkMatrix() {
+	public int[][] getRailNetworkMatrix() {
 		return railNetworkMatrix;
+	}
+
+	public Graph getRailNetworkGraph() {
+		return railNetworkGraph;
 	}
 
 }

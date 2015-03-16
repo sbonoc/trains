@@ -102,7 +102,7 @@ public class RoutesInfoServiceTest {
 
 		int result = service.getNumberOfTripsWithMaxStops(ROUTE_TEST_6[0],
 				ROUTE_TEST_6[1], ROUTE_TEST_6_MAX_STOPS);
-
+		
 		Assert.assertEquals(EXPECTED_TEST_6, result);
 
 		System.out.println("Output #6: " + result);
@@ -112,6 +112,7 @@ public class RoutesInfoServiceTest {
 	public void test7() throws Exception {
 		int result = service.getNumberOfTripsWithNumStops(ROUTE_TEST_7[0],
 				ROUTE_TEST_7[1], ROUTE_TEST_7_NUM_STOPS);
+		//FIXME
 		Assert.assertEquals(EXPECTED_TEST_7, result);
 		System.out.println("Output #7: " + result);
 	}
@@ -127,6 +128,7 @@ public class RoutesInfoServiceTest {
 	@Test
 	public void test9() throws Exception {
 		int result = 9;
+		//TODO
 		Assert.assertEquals(EXPECTED_TEST_9, result);
 		System.out.println("Output #9: " + result);
 	}
@@ -134,6 +136,7 @@ public class RoutesInfoServiceTest {
 	@Test
 	public void test10() throws Exception {
 		int result = 7;
+		//TODO
 		Assert.assertEquals(EXPECTED_TEST_10, result);
 		System.out.println("Output #10: " + result);
 	}
