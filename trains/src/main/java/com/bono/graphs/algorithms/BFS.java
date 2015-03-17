@@ -1,11 +1,14 @@
-package com.bono.graphs;
+package com.bono.graphs.algorithms;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import com.bono.graphs.Edge;
+import com.bono.graphs.Graph;
+
 public class BFS {
 	
-	public static void limitedWeightBFS(final Graph graph, LinkedList<Edge> visited, final String end,
+	public static void limitedDistanceBFS(final Graph graph, LinkedList<Edge> visited, final String end,
 			final int weight, int counter, List<LinkedList<Edge>> result) {
 		
 		LinkedList<Edge> nodes = graph.adjacentNodes(visited.getLast()
@@ -21,6 +24,7 @@ public class BFS {
 				counter += node.getDistance();
 				if (weight >= counter) {
 					result.add(new LinkedList<Edge>(visited));
+					counter = 0;
 				}
 				visited.removeLast();
 				break;

@@ -42,16 +42,16 @@ public class RoutesInfoService implements IRoutesInfoService {
 	public int getNumberOfTripsWithMaxStops(String origin, String destination,
 			int maxStops) throws RailroadRuntimeException {
 
-		return railNetwork.getNumberOfTripsWithMaxStops(origin,
-				destination, maxStops);
+		return railNetwork.getNumberOfTripsWithMaxStops(origin, destination,
+				maxStops);
 
 	}
 
 	public int getNumberOfTripsWithNumStops(String origin, String destination,
 			int numStops) throws RailroadRuntimeException {
 
-		return railNetwork.getNumberOfTripsWithNumStops(origin,
-				destination, numStops);
+		return railNetwork.getNumberOfTripsWithNumStops(origin, destination,
+				numStops);
 
 	}
 
@@ -64,6 +64,14 @@ public class RoutesInfoService implements IRoutesInfoService {
 		return railNetwork.getDistanceOfShortestPathBetween(
 				originStation.getId(), destinationStation.getId());
 
+	}
+
+	public int getNumberOfTripsWithMaxDistance(String origin,
+			String destination, int maxDistance)
+			throws RailroadRuntimeException {
+
+		return railNetwork.getNumberOfTripsWithMaxDistance(origin, destination,
+				maxDistance);
 	}
 
 }

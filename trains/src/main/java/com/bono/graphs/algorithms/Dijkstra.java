@@ -1,4 +1,4 @@
-package com.bono.graphs;
+package com.bono.graphs.algorithms;
 
 import java.util.PriorityQueue;
 
@@ -20,7 +20,7 @@ public class Dijkstra {
 
 	}
 
-	public static int dijkstra(int[][] graph, int from, int to) {
+	public static int dijkstra(final int[][] graph, int from, int to) {
 
 		int[] distance = new int[graph.length];
 		PriorityQueue<Node> priorityQueue = new PriorityQueue<Node>();

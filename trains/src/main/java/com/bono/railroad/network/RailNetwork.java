@@ -4,8 +4,8 @@ import java.util.Map;
 
 import com.bono.graphs.Graph;
 import com.bono.railroad.network.exception.NoSuchStationException;
+import com.bono.railroad.network.search.RouteSearch;
 import com.bono.railroad.network.station.Station;
-import com.bono.railroad.routes.service.RouteSearch;
 import com.bono.railroad.routes.service.exception.NoSuchRouteException;
 
 public class RailNetwork {
@@ -104,6 +104,16 @@ public class RailNetwork {
 				railNetworkMatrix);
 		return search.getDistanceOfShortestPathBetween(idStationOrigin,
 				idStationDestionation);
+
+	}
+
+	public int getNumberOfTripsWithMaxDistance(String origin,
+			String destination, int distance) {
+
+		RouteSearch search = new RouteSearch(railNetworkGraph,
+				railNetworkMatrix);
+		return search.getNumberOfTripsWithMaxDistance(origin, destination,
+				distance);
 
 	}
 

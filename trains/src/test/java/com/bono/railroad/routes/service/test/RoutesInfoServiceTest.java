@@ -24,6 +24,7 @@ public class RoutesInfoServiceTest {
 
 	private static final int ROUTE_TEST_6_MAX_STOPS = 3;
 	private static final int ROUTE_TEST_7_NUM_STOPS = 4;
+	private static final int ROUTE_TEST_10_MAX_DISTANCE = 30;
 
 	private static final int EXPECTED_TEST_1 = 9;
 	private static final int EXPECTED_TEST_2 = 5;
@@ -58,42 +59,63 @@ public class RoutesInfoServiceTest {
 
 	@Test
 	public void test1() throws Exception {
+
 		int result = service.getRouteDistance(ROUTE_TEST_1);
+
 		Assert.assertEquals(EXPECTED_TEST_1, result);
+
 		System.out.println("Output #1: " + result);
 	}
 
 	@Test
 	public void test2() throws Exception {
+
 		int result = service.getRouteDistance(ROUTE_TEST_2);
+
 		Assert.assertEquals(EXPECTED_TEST_2, result);
+
 		System.out.println("Output #2: " + result);
 	}
 
 	@Test
 	public void test3() throws Exception {
+
 		int result = service.getRouteDistance(ROUTE_TEST_3);
+
 		Assert.assertEquals(EXPECTED_TEST_3, result);
+
 		System.out.println("Output #3: " + result);
+
 	}
 
 	@Test
 	public void test4() throws Exception {
+
 		int result = service.getRouteDistance(ROUTE_TEST_4);
+
 		Assert.assertEquals(EXPECTED_TEST_4, result);
+
 		System.out.println("Output #4: " + result);
+
 	}
 
 	@Test(expected = NoSuchRouteException.class)
 	public void test5() throws Exception {
+
 		String result = null;
 		try {
+
 			result = String.valueOf(service.getRouteDistance(ROUTE_TEST_5));
+			
 			Assert.assertEquals(EXPECTED_TEST_5, result);
+			
 			System.out.println("Output #5: " + result);
+
 		} catch (RailroadRuntimeException e) {
+
 			System.out.println("Output #5: " + e.getMessage());
 			throw e;
+
 		}
 	}
 
@@ -102,7 +124,7 @@ public class RoutesInfoServiceTest {
 
 		int result = service.getNumberOfTripsWithMaxStops(ROUTE_TEST_6[0],
 				ROUTE_TEST_6[1], ROUTE_TEST_6_MAX_STOPS);
-		
+
 		Assert.assertEquals(EXPECTED_TEST_6, result);
 
 		System.out.println("Output #6: " + result);
@@ -110,34 +132,45 @@ public class RoutesInfoServiceTest {
 
 	@Test
 	public void test7() throws Exception {
+
 		int result = service.getNumberOfTripsWithNumStops(ROUTE_TEST_7[0],
 				ROUTE_TEST_7[1], ROUTE_TEST_7_NUM_STOPS);
-		//FIXME
+
 		Assert.assertEquals(EXPECTED_TEST_7, result);
+
 		System.out.println("Output #7: " + result);
 	}
 
 	@Test
 	public void test8() throws Exception {
+
 		int result = service.getDistanceOfShortestPathBetween(ROUTE_TEST_8[0],
 				ROUTE_TEST_8[1]);
+
 		Assert.assertEquals(EXPECTED_TEST_8, result);
+
 		System.out.println("Output #8: " + result);
 	}
 
 	@Test
 	public void test9() throws Exception {
-		int result = 9;
-		//TODO
+
+		int result = service.getDistanceOfShortestPathBetween(ROUTE_TEST_9[0],
+				ROUTE_TEST_9[1]);
+
 		Assert.assertEquals(EXPECTED_TEST_9, result);
+
 		System.out.println("Output #9: " + result);
 	}
 
 	@Test
 	public void test10() throws Exception {
-		int result = 7;
-		//TODO
+
+		int result = service.getNumberOfTripsWithMaxDistance(ROUTE_TEST_10[0],
+				ROUTE_TEST_10[1], ROUTE_TEST_10_MAX_DISTANCE);
+
 		Assert.assertEquals(EXPECTED_TEST_10, result);
+
 		System.out.println("Output #10: " + result);
 	}
 

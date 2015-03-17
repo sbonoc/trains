@@ -1,14 +1,14 @@
-package com.bono.railroad.routes.service;
+package com.bono.railroad.network.search;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.bono.graphs.BFS;
-import com.bono.graphs.Dijkstra;
 import com.bono.graphs.Edge;
 import com.bono.graphs.Graph;
+import com.bono.graphs.algorithms.BFS;
+import com.bono.graphs.algorithms.Dijkstra;
 
 public class RouteSearch {
 
@@ -45,6 +45,25 @@ public class RouteSearch {
 			int maxStops) {
 
 		return this.getAllPossibleRoutes(origin, destination, maxStops).size();
+	}
+	
+	public int getNumberOfTripsWithMaxDistance(String origin, String destination,
+			int distance) {
+		
+		List<LinkedList<Edge>> result = new ArrayList<LinkedList<Edge>>();
+		LinkedList<Edge> visited = new LinkedList<Edge>();
+		visited.add(new Edge(origin, 0));
+		
+		BFS.limitedDistanceBFS(railNetworkGraph, visited, destination, distance, 0, result);
+
+		System.out.println("RESULT ==> ");
+
+		for (LinkedList<Edge> route : result) {
+			BFS.printPath(route, distance, -1);
+		}
+
+		return result.size();
+		
 	}
 
 	public int getDistanceOfShortestPathBetween(int originStationId,
