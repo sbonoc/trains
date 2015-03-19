@@ -1,20 +1,17 @@
 package com.bono.railroad.routes.service;
 
 import com.bono.railroad.exception.RailroadRuntimeException;
-import com.bono.railroad.network.RailNetwork;
+import com.bono.railroad.network.service.IRailNetworkSearchLocalService;
+import com.bono.railroad.network.service.RailNetworkSearchLocalService;
 import com.bono.railroad.network.station.Station;
 import com.bono.railroad.routes.service.exception.NoSuchRouteException;
 
 public class RoutesInfoService implements IRoutesInfoService {
 
-	private RailNetwork railNetwork;
+	private IRailNetworkSearchLocalService railNetworkSearchService;
 
 	public RoutesInfoService() {
-		init();
-	}
-
-	private void init() {
-		railNetwork = RailNetwork.getInstance();
+		railNetworkSearchService = new RailNetworkSearchLocalService();
 	}
 
 	public int getRouteDistance(String[] route) throws RailroadRuntimeException {
@@ -28,10 +25,10 @@ public class RoutesInfoService implements IRoutesInfoService {
 
 		for (int i = 0; i < (route.length - 1); i++) {
 
-			origin = railNetwork.getStation(route[i]);
-			destination = railNetwork.getStation(route[i + 1]);
+			origin = railNetworkSearchService.getStation(route[i]);
+			destination = railNetworkSearchService.getStation(route[i + 1]);
 
-			distance += railNetwork.getRouteDistance(origin.getId(),
+			distance += railNetworkSearchService.getRouteDistance(origin.getId(),
 					destination.getId());
 
 		}
@@ -42,7 +39,7 @@ public class RoutesInfoService implements IRoutesInfoService {
 	public int getNumberOfTripsWithMaxStops(String origin, String destination,
 			int maxStops) throws RailroadRuntimeException {
 
-		return railNetwork.getNumberOfTripsWithMaxStops(origin, destination,
+		return railNetworkSearchService.getNumberOfTripsWithMaxStops(origin, destination,
 				maxStops);
 
 	}
@@ -50,7 +47,7 @@ public class RoutesInfoService implements IRoutesInfoService {
 	public int getNumberOfTripsWithNumStops(String origin, String destination,
 			int numStops) throws RailroadRuntimeException {
 
-		return railNetwork.getNumberOfTripsWithNumStops(origin, destination,
+		return railNetworkSearchService.getNumberOfTripsWithNumStops(origin, destination,
 				numStops);
 
 	}
@@ -58,10 +55,10 @@ public class RoutesInfoService implements IRoutesInfoService {
 	public int getDistanceOfShortestPathBetween(String origin,
 			String destination) {
 
-		Station originStation = railNetwork.getStation(origin);
-		Station destinationStation = railNetwork.getStation(destination);
+		Station originStation = railNetworkSearchService.getStation(origin);
+		Station destinationStation = railNetworkSearchService.getStation(destination);
 
-		return railNetwork.getDistanceOfShortestPathBetween(
+		return railNetworkSearchService.getDistanceOfShortestPathBetween(
 				originStation.getId(), destinationStation.getId());
 
 	}
@@ -70,7 +67,7 @@ public class RoutesInfoService implements IRoutesInfoService {
 			String destination, int maxDistance)
 			throws RailroadRuntimeException {
 
-		return railNetwork.getNumberOfTripsWithMaxDistance(origin, destination,
+		return railNetworkSearchService.getNumberOfTripsWithMaxDistance(origin, destination,
 				maxDistance);
 	}
 

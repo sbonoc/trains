@@ -60,42 +60,78 @@ public class RoutesInfoServiceTest {
 	@Test
 	public void test1() throws Exception {
 
-		int result = service.getRouteDistance(ROUTE_TEST_1);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_1, result);
+			int result = service.getRouteDistance(ROUTE_TEST_1);
 
-		System.out.println("Output #1: " + result);
+			Assert.assertEquals(EXPECTED_TEST_1, result);
+
+			System.out.println("Output #1: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #1: " + e.getMessage());
+			throw e;
+
+		}
 	}
 
 	@Test
 	public void test2() throws Exception {
 
-		int result = service.getRouteDistance(ROUTE_TEST_2);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_2, result);
+			int result = service.getRouteDistance(ROUTE_TEST_2);
 
-		System.out.println("Output #2: " + result);
+			Assert.assertEquals(EXPECTED_TEST_2, result);
+
+			System.out.println("Output #2: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #2: " + e.getMessage());
+			throw e;
+
+		}
 	}
 
 	@Test
 	public void test3() throws Exception {
 
-		int result = service.getRouteDistance(ROUTE_TEST_3);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_3, result);
+			int result = service.getRouteDistance(ROUTE_TEST_3);
 
-		System.out.println("Output #3: " + result);
+			Assert.assertEquals(EXPECTED_TEST_3, result);
+
+			System.out.println("Output #3: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #3: " + e.getMessage());
+			throw e;
+
+		}
 
 	}
 
 	@Test
 	public void test4() throws Exception {
 
-		int result = service.getRouteDistance(ROUTE_TEST_4);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_4, result);
+			int result = service.getRouteDistance(ROUTE_TEST_4);
 
-		System.out.println("Output #4: " + result);
+			Assert.assertEquals(EXPECTED_TEST_4, result);
+
+			System.out.println("Output #4: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #4: " + e.getMessage());
+			throw e;
+
+		}
 
 	}
 
@@ -106,9 +142,9 @@ public class RoutesInfoServiceTest {
 		try {
 
 			result = String.valueOf(service.getRouteDistance(ROUTE_TEST_5));
-			
+
 			Assert.assertEquals(EXPECTED_TEST_5, result);
-			
+
 			System.out.println("Output #5: " + result);
 
 		} catch (RailroadRuntimeException e) {
@@ -122,56 +158,102 @@ public class RoutesInfoServiceTest {
 	@Test
 	public void test6() throws Exception {
 
-		int result = service.getNumberOfTripsWithMaxStops(ROUTE_TEST_6[0],
-				ROUTE_TEST_6[1], ROUTE_TEST_6_MAX_STOPS);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_6, result);
+			int result = service.getNumberOfTripsWithMaxStops(ROUTE_TEST_6[0],
+					ROUTE_TEST_6[1], ROUTE_TEST_6_MAX_STOPS);
 
-		System.out.println("Output #6: " + result);
+			Assert.assertEquals(EXPECTED_TEST_6, result);
+
+			System.out.println("Output #6: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #6: " + e.getMessage());
+			throw e;
+
+		}
 	}
 
 	@Test
 	public void test7() throws Exception {
 
-		int result = service.getNumberOfTripsWithNumStops(ROUTE_TEST_7[0],
-				ROUTE_TEST_7[1], ROUTE_TEST_7_NUM_STOPS);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_7, result);
+			int result = service.getNumberOfTripsWithNumStops(ROUTE_TEST_7[0],
+					ROUTE_TEST_7[1], ROUTE_TEST_7_NUM_STOPS);
 
-		System.out.println("Output #7: " + result);
+			Assert.assertEquals(EXPECTED_TEST_7, result);
+
+			System.out.println("Output #7: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #7: " + e.getMessage());
+			throw e;
+
+		}
 	}
 
 	@Test
 	public void test8() throws Exception {
 
-		int result = service.getDistanceOfShortestPathBetween(ROUTE_TEST_8[0],
-				ROUTE_TEST_8[1]);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_8, result);
+			int result = service.getDistanceOfShortestPathBetween(
+					ROUTE_TEST_8[0], ROUTE_TEST_8[1]);
 
-		System.out.println("Output #8: " + result);
+			Assert.assertEquals(EXPECTED_TEST_8, result);
+
+			System.out.println("Output #8: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #8: " + e.getMessage());
+			throw e;
+
+		}
 	}
 
 	@Test
 	public void test9() throws Exception {
 
-		int result = service.getDistanceOfShortestPathBetween(ROUTE_TEST_9[0],
-				ROUTE_TEST_9[1]);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_9, result);
+			int result = service.getDistanceOfShortestPathBetween(
+					ROUTE_TEST_9[0], ROUTE_TEST_9[1]);
 
-		System.out.println("Output #9: " + result);
+			Assert.assertEquals(EXPECTED_TEST_9, result);
+
+			System.out.println("Output #9: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #9: " + e.getMessage());
+			throw e;
+
+		}
 	}
 
 	@Test
 	public void test10() throws Exception {
 
-		int result = service.getNumberOfTripsWithMaxDistance(ROUTE_TEST_10[0],
-				ROUTE_TEST_10[1], ROUTE_TEST_10_MAX_DISTANCE);
+		try {
 
-		Assert.assertEquals(EXPECTED_TEST_10, result);
+			int result = service.getNumberOfTripsWithMaxDistance(
+					ROUTE_TEST_10[0], ROUTE_TEST_10[1],
+					ROUTE_TEST_10_MAX_DISTANCE);
 
-		System.out.println("Output #10: " + result);
+			Assert.assertEquals(EXPECTED_TEST_10, result);
+
+			System.out.println("Output #10: " + result);
+
+		} catch (RailroadRuntimeException e) {
+
+			System.out.println("Output #10: " + e.getMessage());
+			throw e;
+
+		}
 	}
 
 }

@@ -66,7 +66,7 @@ public class RouteSearch {
 		
 	}
 
-	public int getDistanceOfShortestPathBetween(int originStationId,
+	public int getDistanceOfShortestRouteBetween(int originStationId,
 			int destinationStationId) {
 
 		return Dijkstra.dijkstra(railNetworkMatrix, originStationId - 1,
